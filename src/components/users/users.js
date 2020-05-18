@@ -41,13 +41,10 @@ class User extends Component{
     
       render(){
       return (
-        <div className="App">
-          <h1>User App</h1>
           <div className="layout">  
             <UserList users={this.state.users} userClicked={this.userClicked} />
             <UserDetails curr_calorie={this.state.curr_calorie} user={this.state.selectedUser} />
           </div>
-        </div>
         );
       }
     }

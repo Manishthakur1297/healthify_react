@@ -47,7 +47,6 @@ class MealList extends Component{
     render(){
     return (
         <div>
-            <h2>Meal List</h2>
             {
                 
                 this.props.meals.map( meal => {

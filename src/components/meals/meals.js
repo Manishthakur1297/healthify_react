@@ -9,6 +9,7 @@ import { axiosInstance }  from "../service/axiosApi";
 
 import CustomModal from './modal';
 
+import { ProgressBar } from 'react-bootstrap';
 
 class Meal extends Component{
 
@@ -47,14 +48,12 @@ class Meal extends Component{
                 let data = [].concat( res.data );
                 this.setState({max_calorie: data[0].max_calorie})
                 console.log(data)
-                console.log(this.state.max_calorie)    
+                console.log(this.state.max_calorie)  
 
             }).catch(error => console.log(error))
     } catch (error) {
         throw error;
     }
-
-
 
   }
 
@@ -90,10 +89,30 @@ class Meal extends Component{
   }
 
   render(){
+    const curr = this.state.curr_calorie
+    const max = this.state.max_calorie
+    const curr1 = curr / max * 100
+    var variant = 'success'
+    if(curr1<=33){
+      variant = 'success'
+    }
+    else if (curr1<=66)
+    {
+      variant = 'info'
+    }
+    else if (curr1<=99)
+    {
+      variant = 'warning'
+    }
+    else
+    {
+       variant = 'danger'
+    }
+
   return (
     <div className="App">
-      <h1>Meal App</h1>
-      <h4>{this.state.curr_calorie.toFixed(2)}/{this.state.max_calorie}</h4> 
+      {/* label={`${this.state.now}%`} */}
+      <ProgressBar animated variant={variant} now={curr1} />
     <br />
       <div className="layout">
         <MealList getmeals={this.getmeals} meals={this.state.meals} curr_calorie={this.state.curr_calorie} max_calorie={this.state.max_calorie} mealClicked={this.mealClicked} />
