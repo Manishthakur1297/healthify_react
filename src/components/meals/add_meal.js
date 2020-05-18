@@ -1,6 +1,12 @@
-import React, { Component } from "react";
+import React, {Component} from 'react';
 
-import { axiosInstance } from "../service/axiosApi";
+import { Modal, Button } from 'react-bootstrap';
+
+import { Row, FormGroup, FormControl, FormLabel, FormText } from 'react-bootstrap';
+
+import { isEmpty } from '../shared/validator';
+
+import { axiosInstance }  from "../service/axiosApi";
 
 class AddMeal extends Component{
 
@@ -9,8 +15,10 @@ class AddMeal extends Component{
             food_name:'',
             calorie: '0',
             description: ''
-        }
+            },
+        errors: {}
     }
+
 
     inputChanged = event => {
         let meal = this.state.meals;
@@ -18,29 +26,25 @@ class AddMeal extends Component{
         this.setState({meals:meal})
     }
 
+    validateLoginForm = (e) => {
 
-    //     add_meal = event => {
-    //     fetch(`${process.env.REACT_APP_API_URL}/meals/`, {
-    //         method: 'POST',
-    //         headers : {
-    //             'Authorization': 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU5MDgzNzk1NiwianRpIjoiYTljODUyYjcyYjAwNDA1M2IxOTc3ODg3OTFmNmIzNDAiLCJlbWFpbCI6Im1qdGhha3VyNDEzQGdtYWlsLmNvbSJ9.Wk1kryZMHp4jX-e1sC1nfiMxHIgEZA43KNK-_HHKhL0',
-    //             'Content-Type': 'application/x-www-form-urlencoded'
-    //           }, 
-    //         // headers: {'Authorization' : 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU5MDgzNzk1NiwianRpIjoiYTljODUyYjcyYjAwNDA1M2IxOTc3ODg3OTFmNmIzNDAiLCJlbWFpbCI6Im1qdGhha3VyNDEzQGdtYWlsLmNvbSJ9.Wk1kryZMHp4jX-e1sC1nfiMxHIgEZA43KNK-_HHKhL0',
-    //         // 'Content-Type': 'application/json'},
-    //         body: JSON.stringify(this.state.meals)
+        let errors = {};
+        const { meals } = this.state;
 
-    //         })
-    //         .then( resp => resp.json())
-    //         .then( res => {
-    //             console.log(res);
-    //             //this.props.cookies.set('access', res.access);
-    //             //this.props.cookies.set('refresh', res.refresh);
-    //             //window.location.href = "/";
-    //         })
-    //         .catch( error => console.log(error))
-    // }
+        if (isEmpty(meals.food_name)) {
+            errors.meals = "Food Name can't be blank";
+        }
 
+        // if (isEmpty(meals.calorie)) {
+        //     errors.calorie = "Calorie can't be blank";
+        // }
+
+        if (isEmpty(errors)) {
+            return true;
+        } else {
+            return errors;
+        }
+    }
 
     add_meal = (async event => {
         event.preventDefault();
@@ -55,34 +59,52 @@ class AddMeal extends Component{
             window.location.href = '/'
             //return res;
         } catch (error) {
+            alert("Error : Please enter valid Food Name or provide calories>0 for custom food name")
             throw error;
         }
     });
 
+
     render(){
 
-        
+        const { errors } = this.state;
+
         return (
-            <div className="login-container">
-                <h1>Add Meal!</h1>
-                <span>Food Name</span><br />
-                <input name="food_name" type="text" value = {this.state.meals.food_name} 
-                    onChange={this.inputChanged} /><br /><br />
-
-                <span>Calorie</span><br />
-                <input name="calorie" type="number" step="0.01" min="0" max="10" 
-                value = {this.state.meals.calorie} onChange={this.inputChanged} /><br /><br />
-
-                <span>Description</span><br />
-                <input name="description" type="text" value = {this.state.meals.description} 
-                    onChange={this.inputChanged} /><br /><br />
-
-                <button onClick={this.add_meal}>Add Meal</button>
-                
+            <div>
+                <div className="Login">
+                    <Row>
+                        <form onSubmit={this.add_meal}>
+                            <FormGroup>
+                                <FormLabel>Food Name</FormLabel>
+                                <FormControl type="text" name="food_name" value = {this.state.meals.food_name} placeholder="Enter Food Name" onChange={this.inputChanged} />
+                            { errors.food_name &&
+                                <FormText>{errors.food_name}</FormText>
+                            }
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Calorie</FormLabel>
+                                <FormControl name="calorie" type="number" step="0.01" min="0" max="2000" 
+                                    placeholder="Enter Calorie Count" value = {this.state.meals.calorie} onChange={this.inputChanged} />
+                            { errors.calorie &&
+                                <FormText>{errors.calorie}</FormText>
+                            }
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl name="description" type="text" placeholder="Enter Description"
+                                    value = {this.state.meals.description} onChange={this.inputChanged} />
+                            { errors.description &&
+                                <FormText>{errors.description}</FormText>
+                            }
+                            </FormGroup>
+                            <Button type="submit">Add Meal</Button>
+                        </form>
+                    </Row>
+                    </div>
             </div>
-        )    
+        )
     }
 
 }
-    
+
 export default AddMeal;

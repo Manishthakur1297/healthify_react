@@ -7,7 +7,7 @@ import MealList from './list_meals'
 
 import { axiosInstance }  from "../service/axiosApi";
 
-import { Card } from 'react-bootstrap';
+import CustomModal from './modal';
 
 
 class Meal extends Component{
@@ -16,7 +16,8 @@ class Meal extends Component{
     meals : [],
     selectedMeal: null,
     curr_calorie:0,
-    max_calorie:2000
+    max_calorie:2000,
+    show:false
   }
 
   componentDidMount(){
@@ -57,40 +58,49 @@ class Meal extends Component{
 
   }
 
+  getmeals = () => {
+    try{
+        axiosInstance.get('/meals/').then(res => 
+        {
+            console.log(res.data)
+            this.setState({meals: res.data})
+            let count = 0
+            res.data.forEach(meal => {
+                count+=meal.calorie
+            })
+            console.log(count)
+            this.setState({curr_calorie:count})
+
+        }).catch(error => console.log(error))
+      } catch (error) {
+      throw error;
+    }
+  }
+
   mealClicked = meal => {
     console.log(meal)
     this.setState({selectedMeal: meal})
+    this.setState({show:true})
 
   }
 
-  variant = 'Info'
-  idx = 5
+  hide = () => {
+    this.setState({show:false})
+    this.getmeals()
+  }
 
   render(){
   return (
     <div className="App">
       <h1>Meal App</h1>
-      <h4>{this.state.curr_calorie}/{this.state.max_calorie}</h4> 
-
-      <Card
-      bg={this.variant.toLowerCase()}
-      key={this.idx}
-      text={this.variant.toLowerCase() === 'light' ? 'dark' : 'white'}
-      style={{ width: '18rem' }}
-    >
-      <Card.Header>Header</Card.Header>
-      <Card.Body>
-        <Card.Title>{this.variant} Card Title </Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-      </Card.Body>
-    </Card>
+      <h4>{this.state.curr_calorie.toFixed(2)}/{this.state.max_calorie}</h4> 
     <br />
       <div className="layout">
-        <MealList meals={this.state.meals} curr_calorie={this.state.curr_calorie} max_calorie={this.state.max_calorie} mealClicked={this.mealClicked} />
-        {/* <MealDetails meal={this.state.selectedMeal} /> */}
+        <MealList getmeals={this.getmeals} meals={this.state.meals} curr_calorie={this.state.curr_calorie} max_calorie={this.state.max_calorie} mealClicked={this.mealClicked} />
+        {this.state.show ?
+        <CustomModal meal={this.state.selectedMeal} show={this.state.show} hide={this.hide}/> 
+        :
+        null}
       </div>
     </div>
     );

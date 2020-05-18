@@ -4,6 +4,7 @@ import Login from "./auth/login";
 import Signup from "./auth/signup";
 import Meal from "./meals/meals";
 // import './App.css';
+import './style.css'
 import User from "./users/users"
 import AddMeal from "./meals/add_meal"
 

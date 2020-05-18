@@ -1,0 +1,36 @@
+
+.meal-item{
+
+    width: auto;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 1px 1px #ccc;
+    display: inline-block;
+    border: 1px solid gray;
+    
+  }
+  
+  .meal-details{
+    width: auto;
+    height: auto;
+    padding: 20px;
+    margin: 10px;
+    display: block;
+    border: 1px solid white;
+  }
+
+  .icons-block{
+
+    float: right;
+  }
+
+  .icon-edit{
+      margin: 10px;
+      color: rgb(241, 228, 228);
+      cursor: pointer;
+  }
+
+  .icon-trash{
+    color: rgb(179, 79, 79);
+    cursor: pointer;
+}
