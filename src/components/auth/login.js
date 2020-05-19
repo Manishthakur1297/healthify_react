@@ -5,7 +5,7 @@ import { isEmail, isEmpty, isLength, isContainWhiteSpace } from '../shared/valid
 import { axiosInstance }  from "../service/axiosApi";
 
 
-class Login1 extends Component {
+class Login extends Component {
 
     constructor(props) {
         super(props)
@@ -80,6 +80,7 @@ class Login1 extends Component {
                 localStorage.setItem('user', this.state.formData.email);
                 //this.props.handler(false)
                 //  alert("You are successfully signed in...");
+                //this.props.history.push('/dashboard');
                 window.location.href = "/dashboard";
             } catch (error) {
                 throw error;
@@ -114,7 +115,7 @@ class Login1 extends Component {
                             <FormText>{errors.password}</FormText>
                         }
                         </FormGroup>
-                        <Button type="submit">Sign-In</Button>
+                        <Button type="submit">Sign In</Button>
                     </form>
                 </Row>
             </div>
@@ -122,4 +123,4 @@ class Login1 extends Component {
     }
 }
 
-export default Login1;
+export default Login;

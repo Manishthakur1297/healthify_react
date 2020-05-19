@@ -1,5 +1,5 @@
 import React, { Component} from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import Login from "./auth/login";
 import Signup from "./auth/signup";
 import Meal from "./meals/meals";
@@ -11,6 +11,10 @@ import AddMeal from "./meals/add_meal"
 import { axiosInstance } from "./service/axiosApi";
 
 import {Nav, Navbar} from 'react-bootstrap'
+
+import PrivateRoute from '../components/route/PrivateRoute'
+
+import PublicRoute from '../components/route/PublicRoute'
 
 class App extends Component {
 
@@ -28,7 +32,7 @@ class App extends Component {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         axiosInstance.defaults.headers['Authorization'] = null;
-        //this.setState({isLoginView:!this.state.isLoginView})
+        localStorage.removeItem('user')
         window.location.href = '/'
     }
     catch (e) {
@@ -68,19 +72,20 @@ class App extends Component {
                 <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
               </Navbar.Collapse>
             </Navbar>
+            
           
           }
                 <main>
 
                     <Switch>
                         {/* <Route exact path={"/login/"} render={() => <Login handler = {this.handler} />}/> */}
-                        <Route exact path={"/login/"} component={Login}/>
-                        <Route exact path={"/signup/"} component={Signup}/>
-                        <Route exact path={"/dashboard/"} component={Meal}/>
-                        <Route exact path={"/users/"} component={User}/>
-                        <Route exact path={"/meals/"} component={AddMeal}/>
-                        <Route path={"/"}
-                        render={ () =>  ( 
+                        <PublicRoute restricted={true} exact path={"/login/"} component={Login}/>
+                        <PublicRoute restricted={true} exact path={"/signup/"} component={Signup}/>
+                        <PrivateRoute exact path={"/dashboard/"} component={Meal}/>
+                        <PrivateRoute exact path={"/users/"} component={User}/>
+                        <PrivateRoute exact path={"/meals/"} component={AddMeal}/>
+                        <PublicRoute restricted={true} path={"/"} component={Login} />
+                        {/* render={ () =>  ( 
                           <div>
                             { !this.state.elem ?
                               <Login  />
@@ -88,7 +93,7 @@ class App extends Component {
                               <Meal  />
                             }
                           </div>
-                        )} />
+                        )} /> */}
                     </Switch>
                 </main>
             </div>
