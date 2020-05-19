@@ -19,18 +19,8 @@ class MealList extends Component{
         this.props.mealClicked(meal);
     }
 
-    variant = 'Info'
+    variant = 'white'
     idx = 5
-
-    // const [show, setShow] = useState(false);
-    // var meal = null
-    // const handleClose = () => setShow(false);
-    // const handleShow = (meal) => 
-    //     {
-    //         meal=meal
-    //         setShow(true);
-    //     }
-
 
     meal_delete = meal => evt => {
         console.log(meal)
@@ -55,10 +45,10 @@ class MealList extends Component{
                        
 
                         <Card
-                            bg={this.variant.toLowerCase()}
+                            bg={this.props.variantColor.toLowerCase()}
                             key={this.idx}
                             text={this.variant.toLowerCase() === 'light' ? 'dark' : 'white'}
-                            style={{ width: '18rem' }}
+                            style={{ width: '16rem' }}
                             >
                             <Card.Header>ID : {meal.id}</Card.Header>
                             <Card.Body>

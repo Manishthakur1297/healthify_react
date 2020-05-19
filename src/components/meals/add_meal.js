@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import { Modal, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 import { Row, FormGroup, FormControl, FormLabel, FormText } from 'react-bootstrap';
 

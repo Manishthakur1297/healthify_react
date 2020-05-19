@@ -1,4 +1,21 @@
 
+section {
+  width: 100%;
+}
+
+/* Pattern styles */
+.left-half {
+  float: left;
+  width: 20%;
+  margin: 0;
+  margin-top: 10px;;
+}
+.right-half {
+  float: left;
+  margin-left: 50px;
+  width: 75%;
+}
+
 .meal-item{
 
     width: auto;
@@ -8,15 +25,6 @@
     display: inline-block;
     border: 1px solid gray;
     
-  }
-  
-  .meal-details{
-    width: auto;
-    height: auto;
-    padding: 20px;
-    margin: 10px;
-    display: block;
-    border: 1px solid white;
   }
 
   .icons-block{
