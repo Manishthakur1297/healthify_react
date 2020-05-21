@@ -103,7 +103,7 @@ class CustomModal extends Component{
                                 </FormGroup>
                                 <FormGroup>
                                     <FormLabel>Calorie</FormLabel>
-                                    <FormControl name="calorie" type="number" step="0.01" min="0" max="10" 
+                                    <FormControl name="calorie" type="number" step="0.01" min="0" max="2000" 
                                         placeholder={this.state.meals.calorie} onChange={this.handleInputChange} />
                                 { errors.calorie &&
                                     <FormText>{errors.calorie}</FormText>

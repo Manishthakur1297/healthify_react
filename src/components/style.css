@@ -27,6 +27,20 @@ section {
     
   }
 
+
+  .user-item{
+
+    width: auto;
+    padding: 50px;
+    margin: 10px;
+    box-shadow: 0 1px 1px #ccc;
+    display: inline-block;
+    border: 1px solid gray;
+    background-color: darkcyan;
+    color: white;
+    
+  }
+
   .icons-block{
 
     float: right;

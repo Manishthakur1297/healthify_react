@@ -4,8 +4,7 @@ export const axiosInstance = axios.create({
     timeout: 5000,
     headers: {
         'Authorization': "JWT " + localStorage.getItem('refresh_token'),
-        'Content-Type': 'application/json',
-        'accept': 'application/json'
+        'Content-Type': 'application/json'
     }
 });
 
@@ -14,8 +13,7 @@ export const registerInstance = axios.create({
     timeout: 5000,
     headers: {
         'Authorization': null,
-        'Content-Type': 'application/json',
-        'accept': 'application/json'
+        'Content-Type': 'application/json'
     }
 });
 
