@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { axiosInstance }  from "../service/axiosApi";
 
 import UserList from './user_lists'
-import UserDetails from './user_details'
 
 import CustomModal from './modal';
 

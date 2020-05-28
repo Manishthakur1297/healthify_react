@@ -36,7 +36,7 @@ class UserList extends Component{
             let count = 0
             if(meals.length>0){
                 meals.map( meal => {
-                    count+=meal.calorie
+                    return count+=meal.calorie
                 })
             }
             //console.log(count)
